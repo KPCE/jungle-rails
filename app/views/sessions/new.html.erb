@@ -1,0 +1,17 @@
+<h1>Login</h1>
+
+<%= form_tag '/login' do %>
+
+  Email: <%= text_field_tag :email %>
+  Password: <%= password_field_tag :password %>
+  <%= submit_tag "Submit" %>
+
+<% end %>
+
+<div>
+  <h3> Aren't already a user? Then sign up for free today! <h3>
+  <div>
+    <%= link_to 'Signup', '/signup' %>
+  </div>
+
+</div>
