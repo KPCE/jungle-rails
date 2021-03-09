@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
     
     before(:each) do
 
-      @a_user = User.new( 
+      @a_user = User.create!( 
         email: 'fake@fake.com', 
         password: 'guest',
         password_confirmation: 'guest',
@@ -37,29 +37,60 @@ RSpec.describe User, type: :model do
 
     it "does not create a new user record when email address is already taken" do
       
-      user_with_same_email = @a_user.dup
-      user_with_same_email.email = 'fake@fake.com'
-      user_with_same_email.save!
+      new_user = User.new()
+      new_user.email = 'fake@fake.com'
+      new_user.name = "fakeerton"
+      new_user.save
       
-      expect(@a_user).to_not be_valid#
+      expect(new_user).to_not be_valid#
+      
+    end
+
+    it "does not create a new user record when email address is already taken with spaces" do
+      
+      new_user = User.new()
+      new_user.email = '   fake@fake.com   '
+      new_user.name = "fakeerton"
+      new_user.save
+      
+      expect(new_user).to_not be_valid#
+      
+    end
+
+    it "does not create a new user record when email address is already taken, checking case" do
+      
+      new_user = User.new()
+      new_user.email = 'FAKE@fAKe.cOm'
+      new_user.name = "fakeerton"
+      new_user.save
+
+      expect(new_user).to_not be_valid#
       
     end
 
     it "does not create a new user record when email field is empty" do
       
-      @a_user.email = ""
-      
-      expect(@a_user.email.empty?).to be_truthy
-      expect(@a_user).to_not be_valid#
+      new_user = User.new()
+      new_user.email = ''
+      new_user.name = "fakeerton"
+      new_user.save
+
+      expect(new_user.email.empty?).to be_truthy
+      expect(new_user).to_not be_valid#
     end
 
     it "does not create a new user record when name field is empty" do
       
-      @a_user.name = ""
-      
-      expect(@a_user.name.empty?).to be_truthy
-      expect(@a_user).to_not be_valid#
+      new_user = User.new()
+      new_user.email = 'fake@fake.com'
+      new_user.name = ""
+      new_user.save
+
+      expect(new_user.name.empty?).to be_truthy
+      expect(new_user).to_not be_valid#
     end
+
+
 
     # it "does not create a new user record when last name field is empty" do
     #   before do
@@ -72,8 +103,23 @@ RSpec.describe User, type: :model do
     it "does not create a new user record when password is below minimum length" do
       expect(@a_user.password.length).to be > 4
       expect(@a_user.password_confirmation.length).to be > 4
-  
     end
+  end
+
+  describe '.authenticate_with_credentials' do
+
+    it "does not create a new user record when password doesn't match" do
+      new_user = User.new()
+      new_user.email = 'fake2@fake.com'
+      new_user.name = "fakeerton"
+      new_user.password = "1234"
+      new_user.password_confirmation = "1235"
+      new_user.save
+      expect(new_user).to_not be_valid#
+      
+    end
+
+
 
   end
 end

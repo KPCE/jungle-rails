@@ -4,6 +4,11 @@ class UsersController < ApplicationController
   end
 
   def create
+    if params(:email).blank? || params(:name).blank?
+      error: 'name and email fields are both required'
+      redirect_to '/signup'
+    end
+
     user = User.new(user_params)
     if user.save
       session[:user_id] = user.id
