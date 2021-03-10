@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates :name, presence: true
 
+  
   def authenticate_with_credentials(email, password)
     # if email.blank? || name.blank?
     #   nil
