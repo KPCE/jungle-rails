@@ -1,12 +1,5 @@
-class User < ActiveRecord::Base
-
-  has_secure_password
-
-  validates :email, presence: true, uniqueness: true
-  validates :name, presence: true
-
-  # include UserHelper
-  def self.authenticate_with_credentials(email, password)
+module UserHelper
+  def authenticate_with_credentials(email, password)
     # if email.blank? || name.blank?
     #   nil
     # else 
@@ -15,17 +8,15 @@ class User < ActiveRecord::Base
       user = User.find_by_email(email.strip.downcase)
       # If the user exists AND the password entered is correct.
       if user && user.authenticate(password)
-        user
-        # if User.exists?(email: email)
-        #   nil
-        # else
-        #   @user
-        # end
+        if User.exists?(email: params[:user][:email])
+          nil
+        else
+          @user = User.new(user_params.strip)
+        end
       else
-        
         nil
       end
     # end
   end
-  
+
 end

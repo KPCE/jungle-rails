@@ -1,10 +1,13 @@
 
 class SessionsController < ApplicationController
 
+  include UserHelper
+
   def new
   end
 
   def create
+    
     # user = User.find_by_email(params[:email])
     # If the user exists AND the password entered is correct.
     # if user && user.authenticate(params[:password])
@@ -16,7 +19,9 @@ class SessionsController < ApplicationController
     else
     # If user's login doesn't work, send them back to the login form.
       #write code here to send an error
-      redirect_to '/login'
+      @errors = "please enter a valid username and password"
+      # redirect_to '/login'
+      render :new
     end
   end
 
