@@ -26,8 +26,7 @@ RSpec.feature "Visitor can add a product to their cart", type: :feature, js: tru
     
     # VERIFY
     expect(page).to have_selector :link, 'My Cart (1)'
-    #expect(find_link('My Cart (1)')).to exist
     
-    save_screenshot
+    # save_screenshot
   end
 end

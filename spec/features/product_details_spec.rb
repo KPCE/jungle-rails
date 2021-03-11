@@ -30,7 +30,7 @@ RSpec.feature "Visitor navigates to product details page", type: :feature, js: t
     
     expect(page).to have_content('10')
     expect(page).to have_content('64.99')
-    save_screenshot
+    #save_screenshot
   end
 
 end

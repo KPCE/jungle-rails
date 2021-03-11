@@ -10,7 +10,6 @@ RSpec.describe User, type: :model do
         password: 'guest',
         password_confirmation: 'guest',
         name: 'elon musk',
-        # last_name: 'musk'
       )
     end
     
@@ -89,16 +88,6 @@ RSpec.describe User, type: :model do
       expect(new_user.name.empty?).to be_truthy
       expect(new_user).to_not be_valid#
     end
-
-
-
-    # it "does not create a new user record when last name field is empty" do
-    #   before do
-    #     @a_user.last_name = ""
-    #   end
-    #   expect(@a_user.last_name.empty?).to be_truthy
-    #   expect(@a_user).to_not be_valid
-    # end
 
     it "does not create a new user record when password is below minimum length" do
       expect(@a_user.password.length).to be > 4
